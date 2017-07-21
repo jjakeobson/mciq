@@ -22,8 +22,8 @@ end
 
 post '/process_form' do
   data = Hash.new
-
-  data[:acc_id] = session[:acc_id]
+  acc_id = session[:acc_id]
+  data[:acc_id] = acc_id
   data[:describe] = params[:describe]
   data[:audience] = params[:audience]
   data[:goals] = params[:goals]
