@@ -34,7 +34,7 @@ post '/process_form' do
 
   begin
     update = @client.update("Account", Id: "#{data[:acc_id]}",
-                                     Describe_Brand__c: "#{data[:describe]}",
+                                     Brand_Description__c: "#{data[:describe]}",
                                      Audience__c: "#{data[:audience]}",
                                      Goals__c: "#{data[:goals]}",
                                      Instagram_Username__c: "#{data[:username]}",
