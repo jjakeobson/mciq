@@ -34,17 +34,18 @@ post '/process_form' do
 
   puts "JAKE HERE"
   # begin
-  #   update = @client.update("Account", Id: "#{data[:acc_id]}",
-  #                                    Brand_Description__c: "#{data[:describe]}",
-  #                                    Audience__c: "#{data[:audience]}",
-  #                                    Goals__c: "#{data[:goals]}",
-  #                                    Instagram_Username__c: "#{data[:username]}",
-  #                                    Instagram_Password__c: "#{data[:pw]}",
-  #                                    Comments__c: "#{data[:comments]}",
-  #                                    Filled_Out__c: "#{data[:filled_out]}")
+    update = @client.update("Account", Id: "#{data[:acc_id]}",
+                                     Brand_Description__c: "#{data[:describe]}",
+                                     Audience__c: "#{data[:audience]}",
+                                     Goals__c: "#{data[:goals]}",
+                                     Instagram_Username__c: "#{data[:username]}",
+                                     Instagram_Password__c: "#{data[:pw]}",
+                                     Comments__c: "#{data[:comments]}",
+                                     Filled_Out__c: "#{data[:filled_out]}")
+  puts "JAKE HERE 2"                                     
   #   if update
   #     #update sfdc success
-      send_file 'views/thank_you.html'
+      # send_file 'views/thank_you.html'
   #     puts "JAKE -- ACC_ID: #{acc_id} success, DATA: #{data}"
   #   else
   #     #update sfdc failure
