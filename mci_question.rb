@@ -1,0 +1,60 @@
+require 'sinatra'
+require 'restforce'
+require 'pry'
+require 'logger'
+require 'date'
+
+$ACTION_LOG = Logger.new('logs/action_log_file.txt', 'monthly')
+
+before do
+  @client = Restforce.new(username: 'jake@mentorcreation.com',
+                           password: 'Byfaith77!',
+                           security_token: 'r3wlzCxUDP0g6du05SWVnFij',
+                           client_id: '3MVG9zlTNB8o8BA2RSMOnRMRK011Lmptu4P6oC2DvSUMvkLdN9zR.HPG6hGyWRaFH1oC_GcBNZJAPIK6rC.g.',
+                           client_secret: '1781052040781951263',
+                           api_version: '37.0')
+end
+enable :sessions
+
+get '/mci/:account' do
+  acc_id = params['account']
+  session[:acc_id] = acc_id
+  send_file 'views/questionnaire.html'
+end
+
+post '/process_form' do
+  data = Hash.new
+
+  data[:acc_id] = session[:acc_id]
+  data[:describe] = params[:describe]
+  data[:audience] = params[:audience]
+  data[:goals] = params[:goals]
+  data[:username] = params[:username]
+  data[:pw] = params[:pw]
+  data[:comments] = params[:comments]
+  data[:filled_out] = true
+
+  begin
+    update = @client.update("Account", Id: "#{data[:acc_id]}",
+                                     Describe_Brand__c: "#{data[:describe]}",
+                                     Audience__c: "#{data[:audience]}",
+                                     Goals__c: "#{data[:goals]}",
+                                     Instagram_Username__c: "#{data[:username]}",
+                                     Instagram_Password__c: "#{data[:pw]}",
+                                     Comments__c: "#{data[:comments]}",
+                                     Filled_Out__c: "#{data[:filled_out]}")
+    if update
+      #update sfdc success
+      send_file 'views/thank_you.html'
+      puts data
+      $ACTION_LOG.debug("ACC_ID:#{acc_id} success, DATA: #{data}")
+    else
+      #update sfdc failure
+      send_file 'views/update_error'
+      $ACTION_LOG.error("ACC_ID:#{acc_id} failed in the ELSE, DATA: #{data}")
+    end
+  rescue Exception => each
+    #issue updating, log exception
+    $ACTION_LOG.error("ACC_ID:#{acc_id} failed in the RESCUE, DATA: #{data}")
+  end
+end
