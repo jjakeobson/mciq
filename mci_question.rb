@@ -15,9 +15,10 @@ end
 enable :sessions
 
 get '/mci/:account' do
-  acc_id = params['account']
+  acc_id = params[:account]
   session[:acc_id] = acc_id
   send_file 'views/questionnaire.html'
+  puts "JAKE -- session acc_id:#{session[:acc_id]}"
 end
 
 post '/process_form' do
@@ -32,7 +33,6 @@ post '/process_form' do
   data[:comments] = params[:comments]
   data[:filled_out] = true
 
-  puts "JAKE HERE"
   begin
     update = @client.update("Account", Id: "#{data[:acc_id]}",
                                      Brand_Description__c: "#{data[:describe]}",
