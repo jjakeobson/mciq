@@ -18,7 +18,6 @@ get '/mci/:account' do
   acc_id = params[:account]
   session[:acc_id] = acc_id
   send_file 'views/questionnaire.html'
-  puts "JAKE -- session acc_id:#{session[:acc_id]}"
 end
 
 post '/process_form' do
@@ -44,7 +43,7 @@ post '/process_form' do
                                      Filled_Out__c: "#{data[:filled_out]}")
     if update
       #update sfdc success
-      puts "JAKE -- ACC_ID: #{acc_id} success, DATA: #{data}"
+      puts "JAKE -- ACC_ID: #{acc_id} success, DATA: #{data}, update: #{update}"
       send_file 'views/thank_you.html'
     else
       #update sfdc failure
