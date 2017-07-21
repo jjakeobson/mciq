@@ -33,7 +33,7 @@ post '/process_form' do
   data[:filled_out] = true
 
   puts "JAKE HERE"
-  # begin
+  begin
     update = @client.update("Account", Id: "#{data[:acc_id]}",
                                      Brand_Description__c: "#{data[:describe]}",
                                      Audience__c: "#{data[:audience]}",
