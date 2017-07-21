@@ -32,26 +32,27 @@ post '/process_form' do
   data[:comments] = params[:comments]
   data[:filled_out] = true
 
-  begin
-    update = @client.update("Account", Id: "#{data[:acc_id]}",
-                                     Brand_Description__c: "#{data[:describe]}",
-                                     Audience__c: "#{data[:audience]}",
-                                     Goals__c: "#{data[:goals]}",
-                                     Instagram_Username__c: "#{data[:username]}",
-                                     Instagram_Password__c: "#{data[:pw]}",
-                                     Comments__c: "#{data[:comments]}",
-                                     Filled_Out__c: "#{data[:filled_out]}")
-    if update
-      #update sfdc success
+  puts "JAKE HERE"
+  # begin
+  #   update = @client.update("Account", Id: "#{data[:acc_id]}",
+  #                                    Brand_Description__c: "#{data[:describe]}",
+  #                                    Audience__c: "#{data[:audience]}",
+  #                                    Goals__c: "#{data[:goals]}",
+  #                                    Instagram_Username__c: "#{data[:username]}",
+  #                                    Instagram_Password__c: "#{data[:pw]}",
+  #                                    Comments__c: "#{data[:comments]}",
+  #                                    Filled_Out__c: "#{data[:filled_out]}")
+  #   if update
+  #     #update sfdc success
       send_file 'views/thank_you.html'
-      puts "ACC_ID: #{acc_id} success, DATA: #{data}"
-    else
-      #update sfdc failure
-      send_file 'views/update_error'
-      puts "ACC_ID:#{acc_id} failed in the ELSE, DATA: #{data}"
-    end
-  rescue Exception => each
-    #issue updating, log exception
-    puts "ACC_ID:#{acc_id} failed in the RESCUE, DATA: #{data}"
-  end
+  #     puts "JAKE -- ACC_ID: #{acc_id} success, DATA: #{data}"
+  #   else
+  #     #update sfdc failure
+  #     send_file 'views/update_error'
+  #     puts "JAKE -- ACC_ID:#{acc_id} failed in the ELSE, DATA: #{data}"
+  #   end
+  # rescue Exception => each
+  #   #issue updating, log exception
+  #   puts "JAKE -- ACC_ID:#{acc_id} failed in the RESCUE, DATA: #{data}"
+  # end
 end
