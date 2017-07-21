@@ -6,14 +6,14 @@ require 'date'
 
 $ACTION_LOG = Logger.new('logs/action_log_file.txt', 'monthly')
 
-before do
-  @client = Restforce.new(username: 'jake@mentorcreation.com',
-                           password: 'Byfaith77!',
-                           security_token: 'r3wlzCxUDP0g6du05SWVnFij',
-                           client_id: '3MVG9zlTNB8o8BA2RSMOnRMRK011Lmptu4P6oC2DvSUMvkLdN9zR.HPG6hGyWRaFH1oC_GcBNZJAPIK6rC.g.',
-                           client_secret: '1781052040781951263',
-                           api_version: '37.0')
-end
+# before do
+#   @client = Restforce.new(username: 'jake@mentorcreation.com',
+#                            password: 'Byfaith77!',
+#                            security_token: 'r3wlzCxUDP0g6du05SWVnFij',
+#                            client_id: '3MVG9zlTNB8o8BA2RSMOnRMRK011Lmptu4P6oC2DvSUMvkLdN9zR.HPG6hGyWRaFH1oC_GcBNZJAPIK6rC.g.',
+#                            client_secret: '1781052040781951263',
+#                            api_version: '37.0')
+# end
 enable :sessions
 
 get '/mci/:account' do
