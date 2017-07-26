@@ -43,15 +43,23 @@ post '/process_form' do
                                      Filled_Out__c: "#{data[:filled_out]}")
     if update
       #update sfdc success
-      puts "JAKE -- ACC_ID: #{acc_id} success, DATA: #{data}"
+      puts "**SUCCESS** -- ACC_ID: #{acc_id}, username: #{data[:username]}"
+      puts "**SUCCESS** -- UPDATE: #{update}"
+      puts "**SUCCESS** -- DATA: #{data}"
       send_file 'views/thank_you.html'
     else
       #update sfdc failure
-      puts "JAKE -- ACC_ID:#{acc_id} failed in the ELSE, DATA: #{data}, update: #{update}"
+      puts "***FAIL*** -- ACC_ID:#{acc_id}, username: #{data[:username]}"
+      puts "***FAIL*** -- UPDATE: #{update}"
+      puts "***FAIL*** -- IN ELSE"
+      puts "***FAIL*** -- DATA: #{data}"
       send_file 'views/update_error.html'
     end
   rescue Exception => each
     #issue updating, log exception
-    puts "JAKE -- ACC_ID:#{acc_id} failed in the RESCUE, DATA: #{data}"
+    puts "***RESCUE*** -- ACC_ID:#{acc_id}, username: #{data[:username]}"
+    puts "***RESCUE*** -- UPDATE: #{update}"
+    puts "***RESCUE*** -- DATA: #{data}"
+    send_file 'views/update_error.html'
   end
 end
