@@ -5,6 +5,12 @@ require 'logger'
 require 'date'
 
 before do
+  Restforce.log = true
+  Restforce.configure do |config|
+    config.logger = Logger.new("logs/restforce.log")
+    config.log_level = :info
+  end
+
   @client = Restforce.new(username: 'jake@mentorcreation.com',
                            password: 'Byfaith77!',
                            security_token: 'r3wlzCxUDP0g6du05SWVnFij',
@@ -51,6 +57,7 @@ post '/process_form' do
       #update sfdc failure
       puts "***FAIL*** -- ACC_ID:#{acc_id}, username: #{data[:username]}"
       puts "***FAIL*** -- UPDATE: #{update}"
+      puts "***FAIL*** -- CLIENT: #{@client}"
       puts "***FAIL*** -- IN ELSE"
       puts "***FAIL*** -- DATA: #{data}"
       send_file 'views/update_error.html'
@@ -58,6 +65,7 @@ post '/process_form' do
   rescue Exception => each
     #issue updating, log exception
     puts "***RESCUE*** -- ACC_ID:#{acc_id}, username: #{data[:username]}"
+    puts "***FAIL*** -- CLIENT: #{@client}"
     puts "***RESCUE*** -- UPDATE: #{update}"
     puts "***RESCUE*** -- DATA: #{data}"
     send_file 'views/update_error.html'
