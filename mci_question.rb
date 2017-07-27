@@ -3,12 +3,18 @@ require 'restforce'
 require 'pry'
 require 'logger'
 require 'date'
+require 'pushover'
 
 before do
   Restforce.log = true
   Restforce.configure do |config|
     config.logger = Logger.new("logs/restforce.log")
     config.log_level = :info
+  end
+
+  Pushover.configure do |config|
+    config.user='uo474n75ws7ab9czefi5ux1312hfzv'
+    config.token='ae8c3a8fdq53fwxsbxwp8c2ok1czxi'
   end
 
   @client = Restforce.new(username: 'jake@mentorcreation.com',
@@ -60,14 +66,28 @@ post '/process_form' do
       puts "***FAIL*** -- CLIENT: #{@client}"
       puts "***FAIL*** -- IN ELSE"
       puts "***FAIL*** -- DATA: #{data}"
-      send_file 'views/update_error.html'
+
+      Pushover.notification(message: "ACC_ID:#{acc_id}, username: #{data[:username]}.....
+                                      UPDATE: #{update}.....
+                                      CLIENT: #{@client}.....
+                                      IN ELSE.....
+                                      DATA: #{data}", title:"***FAIL UPDATE***")
+
+      send_file 'views/thank_you.html'
     end
   rescue Exception => each
     #issue updating, log exception
     puts "***RESCUE*** -- ACC_ID:#{acc_id}, username: #{data[:username]}"
-    puts "***FAIL*** -- CLIENT: #{@client}"
+    puts "***RESCUE*** -- CLIENT: #{@client}"
     puts "***RESCUE*** -- UPDATE: #{update}"
     puts "***RESCUE*** -- DATA: #{data}"
-    send_file 'views/update_error.html'
+
+    Pushover.notification(message: "ACC_ID:#{acc_id}, username: #{data[:username]}.....
+                                    UPDATE: #{update}.....
+                                    CLIENT: #{@client}.....
+                                    IN ELSE.....
+                                    DATA: #{data}", title:"***FAIL RESCUE***")
+
+    send_file 'views/thank_you.html'
   end
 end
