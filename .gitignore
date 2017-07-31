@@ -1,3 +1,4 @@
 # Ignore application configuration
 .env
 .bundle/
+logs/
